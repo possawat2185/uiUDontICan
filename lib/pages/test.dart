@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ui_udontican/pages/home_user.dart';
 import 'package:ui_udontican/pages/login.dart';
 import 'package:ui_udontican/pages/register.dart';
 
@@ -24,6 +25,9 @@ class _TestPageState extends State<TestPage> {
             FilledButton(onPressed: ()=>{
               Get.to(() => const RegisterPage())
             }, child: const Text('register')),
+            FilledButton(onPressed: ()=>{
+              Get.to(() => const HomeUserPage())
+            }, child: const Text('home user')),
           ],
         ),
       ),

@@ -94,13 +94,13 @@ class _RegisterPageState extends State<RegisterPage> {
                     ],
                   ),
                   const SizedBox(
-                    height: 40,
+                    height: 20,
                   ),
                   Expanded(
                     child: selectedPageRegister
                         ? const RegisterUserPage()
                         : const RegisterRaiderPage(),
-                  )
+                  ),
                 ],
               ),
             ),
