@@ -35,6 +35,26 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
                   )),
               FilledButton(
                   onPressed: () async {
+                    image = await picker.pickImage(source: ImageSource.camera);
+                    if (image != null) {
+                      log(image!.path.toString());
+                      setState(() {});
+                    } else {
+                      log('No Image');
+                    }
+                  },
+                  child: const SizedBox(
+                    width: 80,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Icon(Icons.camera_alt),
+                        Text('ถ่ายรูป'),
+                      ],
+                    ),
+                  )),
+              FilledButton(
+                  onPressed: () async {
                     image = await picker.pickImage(source: ImageSource.gallery);
                     if (image != null) {
                       log(image!.path.toString());
@@ -43,7 +63,15 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
                       log('No Image');
                     }
                   },
-                  child: const Text('เลือกรูป')),
+                  child: const SizedBox(
+                    width: 80,
+                    child: Row(
+                      children: [
+                        Icon(Icons.image_outlined),
+                        Text('เลือกรูป'),
+                      ],
+                    ),
+                  )),
               const Padding(
                 padding: EdgeInsets.fromLTRB(60, 40, 60, 0),
                 child: Column(

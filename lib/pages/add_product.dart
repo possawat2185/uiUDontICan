@@ -4,40 +4,44 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class RegisterRaiderPage extends StatefulWidget {
-  const RegisterRaiderPage({super.key});
+class AddProductPage extends StatefulWidget {
+  const AddProductPage({super.key});
 
   @override
-  State<RegisterRaiderPage> createState() => _RegisterRaiderPageState();
+  State<AddProductPage> createState() => _AddProductPageState();
 }
 
-class _RegisterRaiderPageState extends State<RegisterRaiderPage> {
-  XFile? image;
-  // File? saveFile;
+class _AddProductPageState extends State<AddProductPage> {
+  XFile? product_image;
   ImagePicker picker = ImagePicker();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('เพิ่มสินค้า', style: TextStyle(fontWeight: FontWeight.bold),),
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
             children: [
-              SizedBox(
-                  width: 100,
-                  height: 100,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(999),
-                    child: (image != null)
-                        ? Image.file(File(image!.path))
-                        : Image.asset(
-                            'assets/images/default_person.png',
-                          ),
-                  )),
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: SizedBox(
+                    width: 100,
+                    height: 100,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(999),
+                      child: (product_image != null)
+                          ? Image.file(File(product_image!.path))
+                          : Image.network('https://cdn.pixabay.com/photo/2022/05/10/10/35/box-7186750_640.png')
+                    )),
+              ),
               FilledButton(
                   onPressed: () async {
-                    image = await picker.pickImage(source: ImageSource.camera);
-                    if (image != null) {
-                      log(image!.path.toString());
+                    product_image = await picker.pickImage(source: ImageSource.camera);
+                    if (product_image != null) {
+                      log(product_image!.path.toString());
                       setState(() {});
                     } else {
                       log('No Image');
@@ -46,9 +50,9 @@ class _RegisterRaiderPageState extends State<RegisterRaiderPage> {
                   child: const Text('ถ่ายรูป')),
               FilledButton(
                   onPressed: () async {
-                    image = await picker.pickImage(source: ImageSource.gallery);
-                    if (image != null) {
-                      log(image!.path.toString());
+                    product_image = await picker.pickImage(source: ImageSource.gallery);
+                    if (product_image != null) {
+                      log(product_image!.path.toString());
                       setState(() {});
                     } else {
                       log('No Image');
@@ -62,60 +66,16 @@ class _RegisterRaiderPageState extends State<RegisterRaiderPage> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(left: 20),
-                      child: Text('หมายเลขโทรศัพท์:'),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 10),
-                      child: TextField(
-                        keyboardType: TextInputType.phone,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.phone),
-                          // hintText: '',
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(60, 20, 60, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 20),
-                      child: Text('รหัสผ่าน:'),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 10),
-                      child: TextField(
-                        keyboardType: TextInputType.visiblePassword,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.password),
-                          // hintText: '',
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(60, 20, 60, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 20),
-                      child: Text('ชื่อ:'),
+                      child: Text('ชื่อสินค้า:'),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 10),
                       child: TextField(
                         keyboardType: TextInputType.name,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.text_decrease),
-                          // hintText: '',
-                        ),
+                        // decoration: InputDecoration(
+                        //   prefixIcon: Icon(Icons.),
+                        //   // hintText: '',
+                        // ),
                       ),
                     )
                   ],
@@ -128,16 +88,31 @@ class _RegisterRaiderPageState extends State<RegisterRaiderPage> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(left: 20),
-                      child: Text('ป้ายทะเบียนรถ:'),
+                      child: Text('หมายเลขโทรศัพท์ผู้รับ:'),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: TextField(
+                        keyboardType: TextInputType.phone,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(60, 20, 60, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 20),
+                      child: Text('รายละเอียดสินค้า:'),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 10),
                       child: TextField(
                         keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.numbers),
-                          // hintText: '',
-                        ),
+                        maxLines: 4,
                       ),
                     )
                   ],
@@ -150,7 +125,7 @@ class _RegisterRaiderPageState extends State<RegisterRaiderPage> {
                   height: 50,
                   child: FilledButton(
                     onPressed: (){}, 
-                    child: const Text('Register', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                    child: const Text('ตกลง', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                     ),
                 ),
               ),
